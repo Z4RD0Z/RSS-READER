@@ -27,11 +27,11 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         """
-        The user has provided valid credentials (this was checked in AuthenticationForm.is_valid()). So now we
-        can check the test cookie stuff and log him in.
+            Provides the ability to login as a user with a username and password.
         """
         login(self.request, form.get_user())
         return super(LoginView, self).form_valid(form)
+
 
 class HomeView(TemplateView):
     template_name = "rss/rss.html"

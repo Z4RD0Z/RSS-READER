@@ -1,0 +1,39 @@
+{% extends 'home.html' %}
+
+{% block rss %}
+
+
+  <ul class="list-group" id="rss-list">
+    {% for entry in feeds.entries %}
+
+    <li class="list-group-item" >
+      <div class="dropdown" >
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{entry.title}}
+        </button>
+        <div class="dropdown-menu p-4 text-muted">
+          <p>
+          {% autoescape off %}
+						{% if entry.enclosures %}
+						{% for enclosure in entry.enclosures %}
+						<img src={{enclosure.href}} />
+						{% endfor %}
+						{% endif %}
+						
+						<p>{{entry.description}}						
+            {% if entry.link %}
+            <p>Link all'articolo
+            <a href={{entry.link}}>{{entry.link}}</a></p>
+            {% endif %} 
+          {% endautoescape %}
+          </p>
+        </div>
+      </div>
+      <p>
+    </li>
+
+    {% endfor %}
+  </ul>
+  
+  
+  {% endblock %}

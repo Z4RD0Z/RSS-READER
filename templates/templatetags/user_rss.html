@@ -1,0 +1,12 @@
+<ul class="list-group">
+  {% for rss in user_rss %}
+  <li class="list-group-item"><a href="{% url 'show-rss' pk=rss.id %}">{{rss.get_title}}</a>
+    |<a href="{% url 'delete-rss' pk=rss.id %}">
+     <i class="fa fa-trash-o">Elimina</i> 
+    </a>
+  </li>
+  {% endfor %}
+
+  <li class="list-group-item list-group-item-info"><a href="{% url 'add_rss' %}">Aggiungi Feed</a></li>
+
+</ul>

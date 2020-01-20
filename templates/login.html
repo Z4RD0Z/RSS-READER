@@ -1,0 +1,20 @@
+{% extends 'home.html' %}
+{% load crispy_forms_tags %}
+{% block rss %}
+
+<div class="container">
+
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+					<div class="page">
+		<form method="post">
+			{% csrf_token %}
+			{{ form|crispy }}
+			<button class="btn btn-primary btn-lg" type="submit">Login</button>
+		</form>
+		</div>
+	</div>
+	</div>
+</div>
+
+{% endblock %}

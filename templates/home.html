@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load extra_rss %}
+
+{% block nav %}
+
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'homepage' %}">Zardoz's Eyes</a>
+  <input class="form-control form-control-dark w-100" id="rss-searcher" type="text" placeholder="Search" aria-label="Search">
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="{% url 'logout' %}">Sign out</a>
+    </li>
+  </ul>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="padding-bottom: 100%">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column" >
+          <li class="nav-item">
+            <a class="nav-link">
+              <h4>
+                {% if user.is_authenticated %}
+                Welcome back {{user.username}}
+                {% else %}
+                  <p> <a href="{% url 'login' %}">Accedi</a> per visualizzare i tuoi feed
+                {% endif  %}
+              </h4>
+            </a>
+            <hr>
+            <a class="nav-link" href="#">
+          <li class="list-group-item list-group-item-secondary">I tuoi Feed</li>
+          </a>
+          </li>
+          {% show_all_user_rss user %}
+        </ul>
+    </div>
+    </nav>
+  
+  
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button class="btn btn-sm btn-outline-secondary">Share</button>
+            <button class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+        </div>
+      </div>
+      {% include 'partials/messages.html' %}
+      {% block rss %}
+      {% endblock %}
+    </main>
+  </div>
+  </div>
+{% endblock %}
+{% block extra-script %}
+<script>
+  $(document).ready(function() {
+    $("#rss-searcher").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#rss-list li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+<script type="application/javascript">
+    $('input[type="file"]').change(function(e){
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
+</script>
+{% endblock %}

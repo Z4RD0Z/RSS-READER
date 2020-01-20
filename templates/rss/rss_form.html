@@ -1,0 +1,35 @@
+{% extends 'home.html'  %}
+{% load crispy_forms_tags %}
+
+{% block rss %}
+<form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
+  <div class="form-row">
+    <div class="form-group col-md-6 mb-0">
+      {{ form.link|as_crispy_field }}
+    </div>
+
+    <div class="col-md-6 mb-0">
+
+      <label for="id_file" class="">
+        File
+      </label>
+      <div class="">
+        <input type="file" name="file" class="clearablefileinput form-control" id="id_file" style="padding: 0;">
+      </div>
+    </div>
+  </div>
+
+  {% if form.errors %}
+  {% for error in form.non_field_errors %}
+  <div class="alert alert-danger">
+    <strong>{{ error|escape }}</strong>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <hr>
+  <p align="right">
+    <button type="submit" class="btn btn-primary">Salva</button>
+  </p>
+</form>
+{% endblock %}
